@@ -35,7 +35,7 @@
 								<GridViewColumn Header="Level" Width="200">
 									<GridViewColumn.CellTemplate>
 										<DataTemplate>
-											<TextBlock Text="{Binding Level}"/>
+											<TextBox Text="{Binding Level}" TabIndex="{Binding TabOrder}"/>
 										</DataTemplate>
 									</GridViewColumn.CellTemplate>
 								</GridViewColumn>
