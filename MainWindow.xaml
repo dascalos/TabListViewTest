@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Beer!!!" Height="350" Width="525">
     <DockPanel>
-		<TabControl ItemsSource="{Binding BeerList}" SelectionChanged="Selector_OnSelectionChanged">
+		<TabControl ItemsSource="{Binding BeerList}" SelectedIndex="0">
 			<TabControl.ItemTemplate>
 				<DataTemplate>
 					<TextBlock Text="{Binding BeerName}" />

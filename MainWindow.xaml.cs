@@ -15,10 +15,5 @@ namespace TabListViewTest
 		{
 			Console.WriteLine("List View Loaded: {0}", sender);
 		}
-
-		private void Selector_OnSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-		{
-			Console.WriteLine("Tab Selection Changed {0}", e.AddedItems[0]);
-		}
 	}
 }
