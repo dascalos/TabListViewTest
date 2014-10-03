@@ -2,48 +2,51 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Beer!!!" Height="350" Width="525">
-    <DockPanel>
-		<TabControl ItemsSource="{Binding BeerList}" SelectedIndex="0">
-			<TabControl.ItemTemplate>
-				<DataTemplate>
-					<TextBlock Text="{Binding BeerName}" />
-				</DataTemplate>
-			</TabControl.ItemTemplate>
-			<TabControl.ContentTemplate>
-				<DataTemplate>
-					<ListView 
-						x:Name="BeerDetailsListView" 
-						Background="{x:Null}" 
-						Margin="0,5,0,0" 
-						BorderBrush="{x:Null}"
-						ScrollViewer.HorizontalScrollBarVisibility="Auto" 
-						ScrollViewer.VerticalScrollBarVisibility="Auto"
-						SelectionMode="Single" 
-						ScrollViewer.CanContentScroll="True"
-						ItemsSource="{Binding Path=BeerCharacteristics}"
-						Loaded="BeerDetailsListView_OnLoaded">
-						<ListView.View>
-							<GridView AllowsColumnReorder="False">
-								<GridViewColumn Header="Characteristic" Width="150">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<TextBlock Width="150" Text="{Binding Characteristic}" />
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
+	<StackPanel>
+		<Button Content="Find By Tag" Width="100" Margin="5" Click="FindByTagClick" />
+		<DockPanel>
+			<TabControl x:Name="BeerTabControl" ItemsSource="{Binding Tabs}" SelectedIndex="0">
+				<TabControl.ItemTemplate>
+					<DataTemplate>
+						<TextBlock Text="{Binding TabHeader}" />
+					</DataTemplate>
+				</TabControl.ItemTemplate>
+				<TabControl.ContentTemplate>
+					<DataTemplate>
+						<ListView 
+							x:Name="BeerDetailsListView" 
+							Background="{x:Null}" 
+							Margin="0,5,0,0" 
+							BorderBrush="{x:Null}"
+							ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+							ScrollViewer.VerticalScrollBarVisibility="Auto"
+							SelectionMode="Single" 
+							ScrollViewer.CanContentScroll="True"
+							ItemsSource="{Binding Path=Bcs}"
+							KeyboardNavigation.TabNavigation="Continue">
+							<ListView.View>
+								<GridView AllowsColumnReorder="False">
+									<GridViewColumn Header="Characteristic" Width="150">
+										<GridViewColumn.CellTemplate>
+											<DataTemplate>
+												<TextBlock Width="150" Text="{Binding Characteristic}" />
+											</DataTemplate>
+										</GridViewColumn.CellTemplate>
+									</GridViewColumn>
 
-								<GridViewColumn Header="Level" Width="200">
-									<GridViewColumn.CellTemplate>
-										<DataTemplate>
-											<TextBox Text="{Binding Level}" TabIndex="{Binding TabOrder}"/>
-										</DataTemplate>
-									</GridViewColumn.CellTemplate>
-								</GridViewColumn>
-							</GridView>
-						</ListView.View>
-					</ListView>
-				</DataTemplate>
-			</TabControl.ContentTemplate>
-		</TabControl>
-	</DockPanel>
+									<GridViewColumn Header="Level" Width="200">
+										<GridViewColumn.CellTemplate>
+											<DataTemplate>
+												<TextBox Text="{Binding Level}" Tag="{Binding BeerCharacteristicId}" />
+											</DataTemplate>
+										</GridViewColumn.CellTemplate>
+									</GridViewColumn>
+								</GridView>
+							</ListView.View>
+						</ListView>
+					</DataTemplate>
+				</TabControl.ContentTemplate>
+			</TabControl>
+		</DockPanel>
+	</StackPanel>
 </Window>
