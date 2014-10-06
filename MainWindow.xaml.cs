@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace TabListViewTest
 {
@@ -32,16 +33,43 @@ namespace TabListViewTest
 				break;
 			}
 
-			//var contPres = VisualTreeHelperExtensions.FindVisualChild<ContentPresenter>(BeerTabControl);
+			var contPres = FindVisualChild<ContentPresenter>(BeerTabControl);
 
-			//if (contPres == null) return;
+			if (contPres == null) return;
 
-			//var dataTemplate = contPres.ContentTemplate;
-			//if (dataTemplate == null) return;
+			var dataTemplate = contPres.ContentTemplate;
+			if (dataTemplate == null) return;
 
-			//var lsv = (ListView)dataTemplate.FindName("BeerDetailsListView", contPres);
-			//if (lsv.Items == null || lsv.Items.Count <= 0) return;
+			var lsv = (ListView)dataTemplate.FindName("BeerDetailsListView", contPres);
+			if (lsv.Items == null || lsv.Items.Count <= 0) return;
 
+			foreach (var ls in lsv.Items)
+			{
+				var beerCharacteristic = ls as BeerCharacteristic;
+
+				if (beerCharacteristic != null && beerCharacteristic.BeerCharacteristicId.Equals(tagToFind))
+				{
+					//var mcp = FindVisualChild<ContentPresenter>(ls);
+				}
+			}
+		}
+
+		private static TChildItem FindVisualChild<TChildItem>(DependencyObject obj)
+			where TChildItem : DependencyObject
+		{
+			for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+			{
+				var child = VisualTreeHelper.GetChild(obj, i);
+				if (child is TChildItem)
+					return (TChildItem)child;
+				else
+				{
+					var childOfChild = FindVisualChild<TChildItem>(child);
+					if (childOfChild != null)
+						return childOfChild;
+				}
+			}
+			return null;
 		}
 	}
 }
